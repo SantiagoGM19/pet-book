@@ -1,17 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FilterimagesPipe } from '../filterimages.pipe';
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { ImageService } from '../image.service';
-import { Pipe, PipeTransform } from '@angular/core';
+import { Component, Pipe, PipeTransform } from '@angular/core';
 
 import { GalleryComponent } from './image-gallery.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ImageDetailComponent } from '../image-details/image-details.component';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { CommonModule, Location } from '@angular/common';
+
 
 describe('ImageGalleryComponent', () => {
   let component: GalleryComponent;
   let fixture: ComponentFixture<GalleryComponent>;
   let ImageServiceInject: ImageService;
+
+  @Component({
+    template: ''
+  })
+  class DummyComponent {
+
+  }
 
   beforeEach(async(() => {
 
@@ -25,11 +33,14 @@ describe('ImageGalleryComponent', () => {
       }
     }
 
-    //const mockImageService = jasmine.createSpyObj(['getImages', 'getImage'])
-
-
     TestBed.configureTestingModule({
-      declarations: [GalleryComponent, MockFilterImagesPipe],
+      declarations: [GalleryComponent, MockFilterImagesPipe, DummyComponent],
+      imports: [
+        CommonModule,
+        RouterTestingModule.withRoutes([
+          { path: 'image/:id', component: DummyComponent }
+        ])
+      ],
       providers: [
         {
           provide: ImageService
@@ -45,15 +56,15 @@ describe('ImageGalleryComponent', () => {
       { "id": 4, "brand": "gato", "url": "assets/images/gato2.jpeg" },
       { "id": 5, "brand": "perro", "url": "assets/images/perro3.jpg" },
     ])
+
+
+
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(GalleryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    //btnPerros = fixture.debugElement.queryAll(By.css('.btn'))[1];
-    //btnGatos = fixture.debugElement.queryAll(By.css('.btn'))[2];
   });
 
   it('Debe crear el componente', () => {
@@ -84,7 +95,11 @@ describe('ImageGalleryComponent', () => {
     expect(imagenes.length).toEqual(2);
   })
 
-  it('Debe dirigirse y mostrar la imagen de la mascota en otra pagina al dar click en la imagen', () => {
-    
-  })
+  it('Debe dirigirse y mostrar la imagen de la mascota en otra pagina al dar click en la imagen',
+    async(inject([Router, Location], (router: Router, location: Location) => {
+      fixture.debugElement.query(By.css('a')).nativeElement.click();
+      fixture.whenStable().then(() => {
+        expect(location.path()).toEqual('/image/1')
+      });
+    })));
 });

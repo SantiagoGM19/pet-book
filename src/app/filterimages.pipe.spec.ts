@@ -36,7 +36,7 @@ describe('FilterimagesPipe', () => {
     expect(mascotas.length).toEqual(3)
   })
 
-  it('debe filtrar todas las mascotas cuando laptop es gato', () => {
+  it('debe filtrar solo los gatos cuando laptop es gato', () => {
     let mascotas = pipe.transform(todasLasMascotas, 'gato')
     expect(mascotas.length).toEqual(2)
   })

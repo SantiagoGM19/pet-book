@@ -25,13 +25,23 @@ describe('ImageService', () => {
 
   describe("Obtener imagen", ()=>{
 
-    it("Debe retornar una imagen de un gato cuyo id exista", () => {
+    it("Debe retornar una imagen de un gato cuyo id exista (id = 3)", () => {
       let imagen = service.getImage(3);
       expect(imagen.brand).toEqual("gato");
     })
 
-    it("Debe retornar una imagen de un perro cuyo id exista", () => {
+    it("Debe retornar una imagen de un gato cuyo id exista (id = 4)", () => {
+      let imagen = service.getImage(4);
+      expect(imagen.brand).toEqual("gato");
+    })
+
+    it("Debe retornar una imagen de un perro cuyo id exista (id = 2)", () => {
       let imagen = service.getImage(2);
+      expect(imagen.brand).toEqual("perro");
+    })
+
+    it("Debe retornar una imagen de un perro cuyo id exista (id = 1)", () => {
+      let imagen = service.getImage(1);
       expect(imagen.brand).toEqual("perro");
     })
 
