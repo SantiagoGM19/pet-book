@@ -1,0 +1,7 @@
+organization=santiagogm19
+projectKey=SantiagoGM19_pet-book
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.32057
+dashboardUrl=https://sonarcloud.io/dashboard?id=SantiagoGM19_pet-book
+ceTaskId=AYNSAivYYZxOYKUJXkYm
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AYNSAivYYZxOYKUJXkYm

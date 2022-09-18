@@ -1,5 +1,6 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 import { ImageService } from '../image.service';
+import { ImageDetail } from '../types';
 
 @Component({
   selector: 'app-imagegallery',
@@ -8,9 +9,9 @@ import { ImageService } from '../image.service';
 })
 
 export class GalleryComponent implements OnChanges {
-  images:any[];
+  images:ImageDetail[];
   filterBy?: string = 'all'
- allImages:any[] = [];
+ allImages:ImageDetail[] = [];
 
   constructor(private imageService: ImageService) {
     this.allImages = this.imageService.getImages();
@@ -18,4 +19,4 @@ export class GalleryComponent implements OnChanges {
   ngOnChanges() {
     this.allImages = this.imageService.getImages();
   }
-}   
+}
