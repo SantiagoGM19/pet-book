@@ -1,0 +1,22 @@
+#Rama que va a disparar el pipeline (donde están las pruebas)
+trigger:
+- master
+
+#pool de agentes que provee azure cloud (siempre se crea un contenedor) <- máquina virtual
+pool:
+  vmImage: ubuntu-latest
+
+#Pasos del pipeline
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install -g @angular/cli
+    npm install
+    npm run test-ci
+    npm run build
+  displayName: 'npm install, test and build'
+
