@@ -3,8 +3,7 @@ trigger:
 - master
 
 #pool de agentes que provee azure cloud (siempre se crea un contenedor) <- máquina virtual
-pool:
-  vmImage: ubuntu-latest
+pool: MiMaquina
 
 #Pasos del pipeline
 steps:
